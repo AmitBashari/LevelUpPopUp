@@ -3,32 +3,29 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Level Up Popup v14 - High Fidelity Prototype</title>
+<title>Level Up Popup — Clean (No Feature / Feature)</title>
 <style>
 :root{
   --brown0:#35180b; --brown1:#5d2b12; --brown2:#7c3c1c; --brown3:#a35d2b;
   --cream0:#fff7db; --cream1:#f8e8ba; --cream2:#efd49b; --cream3:#d9b56e;
   --gold0:#fff6b8; --gold1:#ffd66a; --gold2:#ffad20; --gold3:#b86508;
-  --blue1:#8be9ff; --blue2:#32b9ff; --blue3:#2377f3;
   --green1:#5fe04c; --green2:#249834;
-  --red0:#ff8c5f; --red1:#e44418; --red2:#962507;
   --ink:#713c1d;
 }
 *{box-sizing:border-box}
 html,body{margin:0;min-height:100%;background:#0e111b;color:#fff;font-family:Arial,Helvetica,sans-serif}
-body{display:grid;place-items:center;padding:22px 22px 22px 248px;background:
+body{display:grid;place-items:center;padding:22px 22px 22px 230px;background:
   radial-gradient(circle at 20% 10%,rgba(255,153,62,.14),transparent 25%),
   radial-gradient(circle at 80% 10%,rgba(86,112,255,.16),transparent 28%),
   linear-gradient(#1b2031,#0b0e15 72%)}
 .app{display:grid;gap:16px;justify-items:center;width:min(100%,920px)}
 
-/* ---------------- debug panel ---------------- */
-.controls{position:fixed;left:16px;top:50%;transform:translateY(-50%);z-index:60;width:200px;max-height:calc(100vh - 32px);overflow-y:auto;display:flex;flex-direction:column;gap:9px;padding:14px;border-radius:18px;background:rgba(255,255,255,.08);box-shadow:0 16px 35px rgba(0,0,0,.25);backdrop-filter:blur(12px)}
-.controls strong{margin:0 0 2px;padding-bottom:10px;font-size:13px;line-height:1.35;border-bottom:1px solid rgba(255,255,255,.14)}
+/* ---------------- demo switcher (kept small + clean) ---------------- */
+.controls{position:fixed;left:16px;top:50%;transform:translateY(-50%);z-index:60;width:186px;display:flex;flex-direction:column;gap:9px;padding:14px;border-radius:18px;background:rgba(255,255,255,.08);box-shadow:0 16px 35px rgba(0,0,0,.25);backdrop-filter:blur(12px)}
+.controls strong{margin:0 0 4px;padding-bottom:10px;font-size:13px;line-height:1.35;border-bottom:1px solid rgba(255,255,255,.14)}
 .controls .label{margin-top:5px;font-size:10px;font-weight:900;letter-spacing:1.1px;text-transform:uppercase;color:rgba(255,255,255,.48)}
-.controls .hint{font-size:11px;line-height:1.45;font-weight:700;color:rgba(255,255,255,.5)}
 .ctrlRow{display:flex;gap:8px}.ctrlRow .ctrl{flex:1;padding:10px 6px}
-.ctrl{width:100%;text-align:center;border:0;color:#fff;font-weight:900;font-size:13px;padding:10px 14px;border-radius:13px;cursor:pointer;background:linear-gradient(#4b78ff,#2145d6);box-shadow:0 5px 0 #1632a4,0 10px 18px rgba(0,0,0,.22);transition:.12s transform,.12s filter}
+.ctrl{width:100%;text-align:center;border:0;color:#fff;font-weight:900;font-size:13px;padding:11px 14px;border-radius:13px;cursor:pointer;background:linear-gradient(#4b78ff,#2145d6);box-shadow:0 5px 0 #1632a4,0 10px 18px rgba(0,0,0,.22);transition:.12s transform,.12s filter}
 .ctrl:hover{filter:brightness(1.06);transform:translateY(-1px)}.ctrl:active{transform:translateY(3px);box-shadow:0 2px 0 #1632a4}
 .ctrl.gray{background:linear-gradient(#69758f,#434e67);box-shadow:0 5px 0 #2d364b}
 .ctrl.active{background:linear-gradient(#ffc650,#f28c16);box-shadow:0 5px 0 #a95d09}
@@ -50,7 +47,7 @@ body{display:grid;place-items:center;padding:22px 22px 22px 248px;background:
 .actor.foe{right:88px;width:66px;height:84px;background:linear-gradient(#7f8bd6,#3b3f86);box-shadow:0 12px 20px rgba(0,0,0,.3),inset 0 0 0 4px rgba(255,255,255,.1)}
 .actor.foe:after{content:"";position:absolute;left:12px;top:22px;width:42px;height:14px;border-radius:8px;background:rgba(10,8,40,.6)}
 
-/* ---------------- nav bar (unlock destinations) ---------------- */
+/* ---------------- nav bar ---------------- */
 .navbar{position:absolute;left:0;right:0;bottom:0;height:96px;z-index:12;display:grid;grid-template-columns:repeat(5,1fr);align-items:center;padding:0 8px 8px;background:linear-gradient(#8e4f25,#5b2d13);box-shadow:inset 0 4px 0 rgba(255,255,255,.08)}
 .navbtn{position:relative;height:64px;margin:0 5px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(#b97a42,#8f562b);box-shadow:inset 0 0 0 3px rgba(86,47,19,.25)}
 .navbtn.on{background:linear-gradient(#fff1c6,#e9c98d);box-shadow:inset 0 0 0 3px rgba(141,84,33,.28)}
@@ -75,8 +72,10 @@ body{display:grid;place-items:center;padding:22px 22px 22px 248px;background:
 .dim.on{opacity:1;background:rgba(14,7,2,.62);backdrop-filter:blur(2px);pointer-events:auto;cursor:pointer}
 .dim.soft{opacity:1;background:rgba(14,7,2,.5);backdrop-filter:blur(2px);pointer-events:none}
 
-/* ---------------- popup shell ---------------- */
-.popup{position:absolute;left:50%;top:50%;z-index:23;width:380px;transform:translate(-50%,-50%) scale(.78);opacity:0;pointer-events:none;padding:0 0 18px;border-radius:30px;
+/* ---------------- popup shell — FIXED SIZE for every version ---------------- */
+.popup{position:absolute;left:50%;top:50%;z-index:23;width:380px;height:600px;
+  display:flex;flex-direction:column;padding:0 0 18px;
+  transform:translate(-50%,-50%) scale(.78);opacity:0;pointer-events:none;border-radius:30px;
   background:linear-gradient(#fff4d1,#ecd6a3);box-shadow:0 18px 0 #af6825,0 34px 66px rgba(0,0,0,.44),inset 0 0 0 4px rgba(121,68,27,.42)}
 .popup:before{content:"";position:absolute;inset:10px;border-radius:22px;pointer-events:none;box-shadow:inset 0 0 0 3px rgba(255,255,255,.38)}
 .popup.open{pointer-events:auto;animation:popupOpen .34s cubic-bezier(.2,.85,.25,1) forwards}
@@ -84,7 +83,7 @@ body{display:grid;place-items:center;padding:22px 22px 22px 248px;background:
 @keyframes popupOpen{0%{opacity:0;transform:translate(-50%,-50%) scale(.7)}55%{opacity:1;transform:translate(-50%,-50%) scale(1.06)}78%{transform:translate(-50%,-50%) scale(.985)}100%{opacity:1;transform:translate(-50%,-50%) scale(1)}}
 @keyframes popupClose{0%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-50%) scale(.8)}}
 
-.lvlTitle{position:relative;overflow:hidden;margin:-15px auto 0;width:238px;padding:10px 0 11px;border-radius:20px;text-align:center;
+.lvlTitle{position:relative;overflow:hidden;margin:-15px auto 0;width:238px;padding:10px 0 11px;border-radius:20px;text-align:center;flex:0 0 auto;
   background:linear-gradient(#80503a,#54301e);box-shadow:0 6px 0 #2e180e,0 13px 26px rgba(0,0,0,.32),inset 0 0 0 4px rgba(255,255,255,.07);opacity:0}
 .lvlTitle.in{animation:titleIn .3s cubic-bezier(.2,.9,.2,1.25) forwards}
 @keyframes titleIn{0%{opacity:0;transform:translateY(-22px) scale(.84)}68%{opacity:1;transform:translateY(2px) scale(1.05)}100%{opacity:1;transform:translateY(0) scale(1)}}
@@ -93,8 +92,11 @@ body{display:grid;place-items:center;padding:22px 22px 22px 248px;background:
 .lvlTitle .gleam.go{animation:gleamSweep .62s cubic-bezier(.3,.7,.3,1)}
 @keyframes gleamSweep{0%{left:-90px}100%{left:118%}}
 
+/* body region: content is centered, so both versions sit balanced in the same box */
+.popBody{flex:1 1 auto;display:flex;flex-direction:column;justify-content:center;min-height:0}
+
 /* ---------------- level plate ---------------- */
-.lvlRow{position:relative;display:grid;place-items:center;margin:12px 22px 0;height:150px}
+.lvlRow{position:relative;display:grid;place-items:center;margin:0 22px;height:150px;flex:0 0 auto}
 .shockwave{position:absolute;left:50%;top:50%;z-index:4;width:124px;height:124px;transform:translate(-50%,-50%) scale(.5);border-radius:50%;border:5px solid rgba(255,231,140,.95);opacity:0;pointer-events:none}
 .shockwave.go{animation:shock .5s cubic-bezier(.05,.8,.3,1) forwards}
 @keyframes shock{0%{opacity:1;transform:translate(-50%,-50%) scale(.42);border-width:7px}100%{opacity:0;transform:translate(-50%,-50%) scale(2.7);border-width:1px}}
@@ -113,26 +115,8 @@ body{display:grid;place-items:center;padding:22px 22px 22px 248px;background:
 @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
 
 /* ---------------- rewards ---------------- */
-.rewardWrap{position:relative;margin:14px 22px 0}
-.rewardStrip{display:flex;gap:9px;overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;scrollbar-width:none}
-.rewardStrip::-webkit-scrollbar{display:none}
-/* exactly three per page, so a fourth reward never resizes anything */
-.chipCell{flex:0 0 calc((100% - 18px)/3);scroll-snap-align:start}
-.rewardWrap.paged .rewardStrip{cursor:grab}
-.rewardStrip.dragging{cursor:grabbing;scroll-snap-type:none}
-.rewardStrip.dragging .chip{pointer-events:none}
-.rwArrow{position:absolute;top:50%;width:30px;height:30px;margin-top:-15px;padding:0;border:0;border-radius:50%;display:none;place-items:center;cursor:pointer;z-index:4;
-  background:linear-gradient(#fff3cd,#eec37f);box-shadow:0 3px 0 #a5701f,0 6px 12px rgba(0,0,0,.26),inset 0 0 0 2px rgba(255,255,255,.5);transition:opacity .18s ease,transform .1s ease}
-.rewardWrap.paged .rwArrow{display:grid}
-.rwArrow:active{transform:translateY(2px);box-shadow:0 1px 0 #a5701f,0 4px 8px rgba(0,0,0,.22)}
-.rwArrow:disabled{opacity:.28;pointer-events:none}
-.rwArrow.left{left:-15px}.rwArrow.right{right:-15px}
-.rwArrow:before{content:"";width:9px;height:9px;border-top:3px solid #7a4a12;border-right:3px solid #7a4a12;border-radius:1px}
-.rwArrow.left:before{transform:rotate(-135deg);margin-left:4px}
-.rwArrow.right:before{transform:rotate(45deg);margin-right:4px}
-/* chips fade under the arrows rather than colliding with them */
-.rewardWrap.paged .rewardStrip{-webkit-mask:linear-gradient(90deg,transparent 0,#000 13px,#000 calc(100% - 13px),transparent 100%);mask:linear-gradient(90deg,transparent 0,#000 13px,#000 calc(100% - 13px),transparent 100%)}
-.chip{position:relative;padding:11px 6px 10px;border-radius:17px;text-align:center;background:linear-gradient(rgba(255,255,255,.76),rgba(255,244,213,.86));box-shadow:inset 0 0 0 2px rgba(121,70,31,.18),0 7px 13px rgba(0,0,0,.09);opacity:0;transform:translateY(14px) scale(.9)}
+.rewardStrip{display:flex;justify-content:center;gap:9px;margin:16px 22px 0;flex:0 0 auto}
+.chip{position:relative;flex:0 0 calc((100% - 18px)/3);padding:11px 6px 10px;border-radius:17px;text-align:center;background:linear-gradient(rgba(255,255,255,.76),rgba(255,244,213,.86));box-shadow:inset 0 0 0 2px rgba(121,70,31,.18),0 7px 13px rgba(0,0,0,.09);opacity:0;transform:translateY(14px) scale(.9)}
 .chip.in{animation:chipIn .3s cubic-bezier(.2,.9,.2,1.3) forwards}
 @keyframes chipIn{0%{opacity:0;transform:translateY(16px) scale(.86)}66%{opacity:1;transform:translateY(-4px) scale(1.07)}100%{opacity:1;transform:translateY(0) scale(1)}}
 .chipIcon{width:36px;height:36px;margin:0 auto 6px;filter:drop-shadow(0 3px 0 rgba(90,50,10,.3))}
@@ -140,99 +124,51 @@ body{display:grid;place-items:center;padding:22px 22px 22px 248px;background:
 .i-energy{background:linear-gradient(#fff0a8,#ffab14);clip-path:polygon(56% 0,16% 56%,46% 56%,38% 100%,84% 42%,52% 42%)}
 .i-ticket{border-radius:8px;background:linear-gradient(#c39bff,#7c3ce0);box-shadow:inset 0 0 0 3px rgba(255,255,255,.32)}
 .i-parts{border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff0bd,#ffc860 43%,#ff8b24);box-shadow:inset 0 0 0 3px rgba(159,80,12,.22)}
-.i-talent{background:linear-gradient(#9fe7ff,#2f8cf0);clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%)}
 .chipVal{font-size:16px;font-weight:1000;color:#5f3315}
 .chipName{margin-top:2px;font-size:10px;font-weight:900;color:#95643c}
 
-/* ---------------- unlock area — fixed height, split only on collision levels ---------------- */
-.duo{display:grid;grid-template-columns:1fr;grid-template-rows:128px;gap:10px;margin:15px 22px 0;height:128px}
-.duo.split{grid-template-columns:1fr 1fr}
-.duo:not(.split) .lane.second{display:none}
-.lane{position:relative;border-radius:20px;overflow:hidden;cursor:pointer;user-select:none;opacity:0;transform:translateY(18px) scale(.95)}
-.lane.in{animation:featIn .34s cubic-bezier(.2,.9,.2,1.2) forwards}
+/* ---------------- feature-unlocked lane (feature version only) ---------------- */
+.featLane{position:relative;overflow:hidden;display:grid;grid-template-columns:64px 1fr;gap:14px;align-items:center;margin:16px 22px 0;padding:13px 15px;border-radius:20px;flex:0 0 auto;
+  background:linear-gradient(#fff2b9,#f2cf6c);box-shadow:inset 0 0 0 3px rgba(168,117,25,.24),0 9px 16px rgba(0,0,0,.12),0 0 0 3px rgba(255,222,96,.4),0 0 26px rgba(255,199,60,.42);
+  opacity:0;transform:translateY(18px) scale(.95)}
+.featLane.in{animation:featIn .34s cubic-bezier(.2,.9,.2,1.2) forwards}
 @keyframes featIn{0%{opacity:0;transform:translateY(20px) scale(.93)}66%{opacity:1;transform:translateY(-5px) scale(1.03)}100%{opacity:1;transform:translateY(0) scale(1)}}
-.lane.earned{background:linear-gradient(#fff2b9,#f2cf6c);box-shadow:inset 0 0 0 3px rgba(168,117,25,.24),0 9px 16px rgba(0,0,0,.12),0 0 0 3px rgba(255,222,96,.4),0 0 26px rgba(255,199,60,.42)}
-.lane.pending{background:linear-gradient(#ded5c6,#bdb1a0);box-shadow:inset 0 0 0 3px rgba(90,80,66,.24),0 9px 16px rgba(0,0,0,.12)}
-.lane.holding{filter:brightness(1.05)}
-
-/* default: one card, icon beside text, description shown */
-.duo:not(.split) .lane{display:grid;grid-template-columns:70px 1fr;gap:14px;align-items:center;padding:15px;text-align:left}
-.duo:not(.split) .laneIcon{width:70px;height:70px;border-radius:20px}
-.duo:not(.split) .laneIcon .glyph{width:40px;height:40px}
-.duo:not(.split) .laneName{font-size:20px;height:auto;margin-top:4px}
-.duo:not(.split) .laneDesc{display:block}
-
-/* collision level: two compact lanes, descriptions move to hold-to-peek */
-.duo.split .lane{display:block;padding:12px 10px 11px;text-align:center}
-.duo.split .laneIcon{margin:0 auto}
-.duo.split .laneDesc{display:none}
-
-.laneIcon{position:relative;width:52px;height:52px;border-radius:16px;display:grid;place-items:center}
-.lane.earned .laneIcon{background:linear-gradient(#ffd873,#f09a15);box-shadow:0 0 0 3px rgba(255,255,255,.55),0 0 20px rgba(255,167,40,.5),inset 0 -4px 0 rgba(150,80,5,.25)}
-.lane.pending .laneIcon{background:linear-gradient(#8e857a,#655e55);box-shadow:0 0 0 3px rgba(255,255,255,.24),inset 0 -4px 0 rgba(40,36,31,.3)}
-.glyph{width:30px;height:30px;background:#fff;filter:drop-shadow(0 2px 0 rgba(90,50,10,.35))}
-.lane.pending .glyph{background:#cfc7bb;filter:none;opacity:.8}
-.g-arena{clip-path:polygon(50% 0,100% 17%,100% 58%,50% 100%,0 58%,0 17%)}
-.g-talent{clip-path:polygon(50% 0,62% 30%,100% 34%,72% 58%,82% 100%,50% 78%,18% 100%,28% 58%,0 34%,38% 30%)}
-.g-forge{clip-path:polygon(14% 20%,86% 20%,86% 40%,62% 44%,70% 100%,30% 100%,38% 44%,14% 40%)}
-.g-dungeon{clip-path:polygon(50% 0,100% 30%,100% 100%,68% 100%,68% 62%,32% 62%,32% 100%,0 100%,0 30%)}
-.g-well{clip-path:polygon(50% 0,86% 44%,100% 74%,74% 100%,26% 100%,0 74%,14% 44%)}
-.g-pass{clip-path:polygon(16% 0,84% 0,84% 100%,50% 76%,16% 100%)}
-.g-clan{clip-path:polygon(50% 0,100% 38%,100% 100%,62% 100%,62% 66%,38% 66%,38% 100%,0 100%,0 38%)}
-.g-chest{clip-path:polygon(4% 36%,50% 8%,96% 36%,96% 92%,4% 92%)}
-.g-gems{clip-path:polygon(50% 0,88% 18%,100% 57%,74% 100%,26% 100%,0 57%,12% 18%)}
-.g-bolt{clip-path:polygon(56% 0,16% 56%,46% 56%,38% 100%,84% 42%,52% 42%)}
-.g-fusion{clip-path:polygon(50% 0,72% 26%,100% 32%,78% 54%,86% 100%,50% 76%,14% 100%,22% 54%,0 32%,28% 26%)}
-.g-relic{clip-path:polygon(24% 0,76% 0,76% 26%,92% 44%,66% 70%,66% 88%,84% 100%,16% 100%,34% 88%,34% 70%,8% 44%,24% 26%)}
-.lockBadge{position:absolute;right:-6px;bottom:-6px;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(#5f584f,#3b352f);box-shadow:0 3px 0 rgba(0,0,0,.35),inset 0 0 0 2px rgba(255,255,255,.18)}
-.lockBadge:before{content:"";width:11px;height:8px;margin-top:2px;border-radius:2px;background:#e4ddd2}
-.lockBadge:after{content:"";position:absolute;left:50%;top:4px;width:9px;height:7px;transform:translateX(-50%);border:3px solid #e4ddd2;border-bottom:0;border-radius:5px 5px 0 0}
-.laneKick{margin-top:9px;font-size:9px;font-weight:1000;letter-spacing:1.1px;line-height:1}
-.duo:not(.split) .laneKick{margin-top:0}
-.lane.earned .laneKick{color:#a56a12}
-.lane.pending .laneKick{color:#6a6259}
-.laneName{margin-top:5px;height:34px;overflow:hidden;font-size:15px;font-weight:1000;line-height:1.13}
-.lane.earned .laneName{color:#5e3006}
-.lane.pending .laneName{color:#453f38}
-.laneDesc{display:none;margin-top:6px;font-size:12.5px;font-weight:800;line-height:1.34}
-.lane.earned .laneDesc{color:#8b5b21}
-.lane.pending .laneDesc{color:#5f584e}
+.featIcon{position:relative;width:64px;height:64px;border-radius:18px;display:grid;place-items:center;background:linear-gradient(#ffd873,#f09a15);box-shadow:0 0 0 3px rgba(255,255,255,.55),0 0 20px rgba(255,167,40,.5),inset 0 -4px 0 rgba(150,80,5,.25)}
+.featIcon .glyph{width:36px;height:36px;background:#fff;filter:drop-shadow(0 2px 0 rgba(90,50,10,.35))}
+.featKick{font-size:9px;font-weight:1000;letter-spacing:1.1px;color:#a56a12}
+.featName{margin-top:3px;font-size:19px;font-weight:1000;color:#5e3006;line-height:1.1}
+.featDesc{margin-top:4px;font-size:12.5px;font-weight:800;line-height:1.32;color:#8b5b21}
 .laneShine{position:absolute;top:0;bottom:0;width:58px;left:-80px;background:linear-gradient(100deg,transparent,rgba(255,255,255,.75),transparent);filter:blur(5px);pointer-events:none}
 .laneShine.go{animation:laneShine .8s ease-out .1s}
 @keyframes laneShine{0%{left:-80px}100%{left:112%}}
+/* pending state: the next feature that hasn't landed yet (no-feature version fills the mid with this) */
+.featLane.pending{background:linear-gradient(#ded5c6,#bdb1a0);box-shadow:inset 0 0 0 3px rgba(90,80,66,.24),0 9px 16px rgba(0,0,0,.12)}
+.featLane.pending .featIcon{background:linear-gradient(#8e857a,#655e55);box-shadow:0 0 0 3px rgba(255,255,255,.24),inset 0 -4px 0 rgba(40,36,31,.3)}
+.featLane.pending .featIcon .glyph{background:#cfc7bb;filter:none;opacity:.85}
+.featLane.pending .featKick{color:#6a6259}
+.featLane.pending .featName{color:#453f38}
+.featLane.pending .featDesc{color:#5f584e}
+.lockBadge{position:absolute;right:-6px;bottom:-6px;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(#5f584f,#3b352f);box-shadow:0 3px 0 rgba(0,0,0,.35),inset 0 0 0 2px rgba(255,255,255,.18)}
+.lockBadge:before{content:"";width:11px;height:8px;margin-top:2px;border-radius:2px;background:#e4ddd2}
+.lockBadge:after{content:"";position:absolute;left:50%;top:4px;width:9px;height:7px;transform:translateX(-50%);border:3px solid #e4ddd2;border-bottom:0;border-radius:5px 5px 0 0}
 
-/* ---------------- roadmap: recessed strip ---------------- */
-.roadmap{margin:15px 22px 0}
-.roadHead{min-height:15px;margin-bottom:7px;font-size:10px;font-weight:1000;letter-spacing:1.4px;color:#a0713f;transition:color .2s ease}
-.roadHead .hint{color:#c19a6d}
-.roadRail{position:relative;border-radius:18px;padding:3px;background:linear-gradient(#c69a63,#a87b46);box-shadow:inset 0 3px 7px rgba(60,32,10,.4),inset 0 0 0 2px rgba(93,52,18,.28),0 2px 0 rgba(255,255,255,.22)}
-.roadTrack{display:flex;overflow-x:auto;border-radius:15px;background:rgba(255,246,222,.34);scroll-snap-type:x proximity;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;scrollbar-width:none;cursor:grab}
-.roadTrack::-webkit-scrollbar{display:none}
-.roadTrack.dragging{cursor:grabbing;scroll-snap-type:none}
-.roadTrack.dragging .roadItem{pointer-events:none}
-.roadItem{position:relative;flex:0 0 93px;scroll-snap-align:start;padding:9px 6px 11px;text-align:center;cursor:pointer;user-select:none;-webkit-touch-callout:none;border-right:1px solid rgba(103,62,24,.2);opacity:0;transform:translateY(8px);transition:background .16s ease}
-.roadItem.in{animation:fadeUp .32s ease-out forwards}
-.roadItem:last-child{border-right:0}
-.roadItem:hover{background:rgba(255,255,255,.28)}
-.roadItem.holding{background:rgba(255,255,255,.42)}
-/* locked-but-not-next items keep full legibility — dark ink on a light field */
-.roadGlyph{width:24px;height:24px;margin:0 auto 6px;background:#7c4c1d;opacity:.92}
-.roadIn{font-size:11px;font-weight:1000;color:#63390f;line-height:1}
-.roadName{margin-top:3px;font-size:9px;font-weight:900;line-height:1.2;height:22px;overflow:hidden;color:#5f3d18}
-/* the next unlock leads with a filled gold plate */
-.roadItem.next{background:linear-gradient(#ffdd7c,#f4a91d);box-shadow:inset 0 0 0 2px rgba(255,255,255,.34)}
-.roadItem.next:hover{background:linear-gradient(#ffe28d,#f7b02c)}
-.roadItem.next .roadGlyph{background:#7a4406;opacity:1}
-.roadItem.next .roadIn{color:#5b3103}
-.roadItem.next .roadName{color:#6b3f08}
-/* teaches the hold gesture */
-.freshTag{position:absolute;left:50%;top:-1px;transform:translateX(-50%);padding:2px 7px;border-radius:0 0 8px 8px;background:linear-gradient(#5fe04c,#1e9633);box-shadow:0 2px 0 rgba(15,90,25,.5);color:#fff;font-size:8px;font-weight:1000;letter-spacing:1px;z-index:2}
-.roadItem.fresh{animation:freshFlare 1.7s ease-in-out 2}
-@keyframes freshFlare{0%,100%{box-shadow:inset 0 0 0 0 rgba(95,224,76,0)}50%{box-shadow:inset 0 0 0 2px rgba(95,224,76,.85),0 0 16px rgba(95,224,76,.4)}}
-/* milestones read as rewards, features as systems */
-.roadItem.ms .roadGlyph{background:#8a6a2a}
-.roadItem.ms.next .roadGlyph{background:#7a4406}
+/* ---------------- next-feature teaser (small, low hierarchy, feature version only) ---------------- */
+.teaser{display:flex;align-items:center;gap:9px;margin:12px 22px 0;padding:9px 12px;border-radius:13px;flex:0 0 auto;
+  background:rgba(124,76,29,.08);box-shadow:inset 0 0 0 1px rgba(124,76,29,.14);opacity:0;transform:translateY(10px)}
+.teaser.in{animation:fadeUp .3s ease-out forwards}
+.teaserGlyph{width:22px;height:22px;background:#9a6a2f;opacity:.9;flex:0 0 auto}
+.teaserTxt{font-size:11px;font-weight:900;color:#8a5b2a;line-height:1.3}
+.teaserTxt .lead{display:block;font-size:8.5px;letter-spacing:1.3px;color:#a9865b;margin-bottom:1px}
+.teaserTxt b{color:#5e3006;font-size:12.5px}
+.teaserWhen{margin-left:auto;flex:0 0 auto;text-align:right;font-size:12px;font-weight:1000;color:#5e3006;line-height:1.05}
+.teaserWhen small{display:block;font-size:8.5px;font-weight:900;letter-spacing:.4px;color:#a9865b}
+
+/* ---------------- hold-to-peek info ---------------- */
+.chip{cursor:pointer;user-select:none}
+.featLane,.teaser{cursor:pointer;user-select:none}
 .chip.holding{filter:brightness(1.04);box-shadow:inset 0 0 0 2px rgba(121,70,31,.3),0 7px 13px rgba(0,0,0,.12)}
+.featLane.holding{filter:brightness(1.05)}
+.teaser.holding{filter:brightness(1.03)}
 .infoBubble{position:absolute;z-index:30;width:236px;padding:12px 14px 13px;border-radius:16px;pointer-events:none;opacity:0;transform:translateY(6px) scale(.96);transform-origin:50% 100%;
   background:linear-gradient(#3a2515,#241408);box-shadow:0 12px 26px rgba(0,0,0,.45),inset 0 0 0 2px rgba(255,214,140,.28);transition:opacity .16s ease,transform .2s cubic-bezier(.15,.9,.2,1.1)}
 .infoBubble.on{opacity:1;transform:translateY(0) scale(1)}
@@ -241,19 +177,36 @@ body{display:grid;place-items:center;padding:22px 22px 22px 248px;background:
 .ibTitle{font-size:15px;font-weight:1000;color:#ffd97a}
 .ibMeta{margin-top:4px;font-size:11px;font-weight:900;letter-spacing:.3px;color:#c79a5f}
 .ibDesc{margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,214,140,.18);font-size:12px;font-weight:700;line-height:1.42;color:#f0e2cd}
-.railFade{position:absolute;top:3px;bottom:3px;right:3px;width:26px;border-radius:0 15px 15px 0;pointer-events:none;background:linear-gradient(90deg,rgba(150,105,58,0),rgba(150,105,58,.75));opacity:0;transition:opacity .2s ease}
-.railFade.on{opacity:1}
-.railFade.left{left:3px;right:auto;border-radius:15px 0 0 15px;background:linear-gradient(270deg,rgba(150,105,58,0),rgba(150,105,58,.75))}
+/* subtle "hold for info" affordance under the rewards */
+.holdHint{margin:8px 22px 0;text-align:center;font-size:9px;font-weight:1000;letter-spacing:1.4px;color:rgba(124,76,29,.42)}
+
+/* ---------------- glyphs ---------------- */
+.glyph{width:30px;height:30px;background:#fff;filter:drop-shadow(0 2px 0 rgba(90,50,10,.35))}
+.g-arena{clip-path:polygon(50% 0,100% 17%,100% 58%,50% 100%,0 58%,0 17%)}
+.g-talent{clip-path:polygon(50% 0,62% 30%,100% 34%,72% 58%,82% 100%,50% 78%,18% 100%,28% 58%,0 34%,38% 30%)}
+.g-forge{clip-path:polygon(14% 20%,86% 20%,86% 40%,62% 44%,70% 100%,30% 100%,38% 44%,14% 40%)}
+.g-dungeon{clip-path:polygon(50% 0,100% 30%,100% 100%,68% 100%,68% 62%,32% 62%,32% 100%,0 100%,0 30%)}
+.g-well{clip-path:polygon(50% 0,86% 44%,100% 74%,74% 100%,26% 100%,0 74%,14% 44%)}
+.g-pass{clip-path:polygon(16% 0,84% 0,84% 100%,50% 76%,16% 100%)}
 
 /* ---------------- CTA + skip ---------------- */
-.cta{display:block;width:calc(100% - 44px);margin:16px 22px 0;border:0;cursor:pointer;padding:15px 18px;border-radius:19px;color:#fff;font-size:20px;font-weight:1000;
+.cta{display:block;flex:0 0 auto;width:calc(100% - 44px);margin:16px 22px 0;border:0;cursor:pointer;padding:15px 18px;border-radius:19px;color:#fff;font-size:20px;font-weight:1000;
   background:linear-gradient(#50e367,#20ad3f);box-shadow:0 6px 0 #127d29,0 13px 23px rgba(0,0,0,.22);opacity:0;transform:translateY(12px);transition:.11s transform,.11s box-shadow}
 .cta.in{animation:fadeUp .26s cubic-bezier(.2,.9,.2,1.1) forwards}
 .cta.pressed,.cta:active{transform:translateY(4px) scale(.986);box-shadow:0 2px 0 #127d29,0 7px 14px rgba(0,0,0,.18)}
+.cta.nudge{animation:ctaNudge .5s cubic-bezier(.2,.9,.25,1.1) forwards}
+@keyframes ctaNudge{0%,100%{opacity:1;transform:translateY(0) scale(1)}30%{opacity:1;transform:translateY(-3px) scale(1.035)}60%{opacity:1;transform:translateY(0) scale(.99)}}
 .skipHint{position:absolute;left:50%;bottom:38px;z-index:25;transform:translateX(-50%);padding:7px 15px;border-radius:999px;background:rgba(0,0,0,.42);color:rgba(255,255,255,.8);font-size:12px;font-weight:900;letter-spacing:.4px;opacity:0;pointer-events:none;transition:opacity .3s ease}
 .skipHint.on{opacity:1}
 
-/* ---------------- feature unlock sequence ---------------- */
+/* ---------------- 60s auto-close ring — deliberately low hierarchy ---------------- */
+.timerRing{position:absolute;right:16px;top:16px;z-index:27;width:24px;height:24px;pointer-events:none;opacity:0;transition:opacity .3s ease}
+.timerRing.on{opacity:.5}
+.timerRing svg{display:block;transform:rotate(-90deg)}
+.timerRing .track{fill:none;stroke:rgba(124,76,29,.20);stroke-width:2.5}
+.timerRing .prog{fill:none;stroke:rgba(184,101,8,.75);stroke-width:2.5;stroke-linecap:round}
+
+/* ---------------- feature unlock flight (feature version payoff) ---------------- */
 .unlockFly{position:absolute;left:0;top:0;z-index:28;pointer-events:none;opacity:0;will-change:transform}
 .unlockDisc{position:relative;width:132px;height:132px;margin:-66px 0 0 -66px;border-radius:34px;display:grid;place-items:center;background:linear-gradient(#ffe185,#f0980f);box-shadow:0 0 0 5px rgba(255,255,255,.6),0 0 34px rgba(255,170,40,.75),inset 0 -7px 0 rgba(150,80,5,.28)}
 .unlockDisc .glyph{width:74px;height:74px;background:#fff}
@@ -272,52 +225,33 @@ body{display:grid;place-items:center;padding:22px 22px 22px 248px;background:
 .core.form{animation:coreForm .3s ease-out forwards}.core.burst{animation:coreBurst .28s ease-in forwards}
 @keyframes coreForm{0%{opacity:0;transform:translate(-50%,-50%) scale(.2)}100%{opacity:1;transform:translate(-50%,-50%) scale(1)}}
 @keyframes coreBurst{0%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-50%) scale(1.9)}}
-/* ---------------- slam impact fx ---------------- */
-/* white→gold bloom centred on the badge; screen-blend so it lifts rather than whites out */
-.flashBloom{position:absolute;left:50%;top:46%;width:560px;height:560px;z-index:24;transform:translate(-50%,-50%) scale(.55);border-radius:50%;pointer-events:none;opacity:0;
+.flashBloom{position:absolute;left:50%;top:44%;width:560px;height:560px;z-index:24;transform:translate(-50%,-50%) scale(.55);border-radius:50%;pointer-events:none;opacity:0;
   background:radial-gradient(circle,rgba(255,255,255,.95) 0%,rgba(255,222,120,.62) 26%,rgba(255,173,32,0) 62%);mix-blend-mode:screen}
 .flashBloom.go{animation:bloomHit .3s cubic-bezier(.12,.9,.3,1) forwards}
 @keyframes bloomHit{0%{opacity:0;transform:translate(-50%,-50%) scale(.55)}10%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) scale(1.35)}}
-/* whole-screen impact shake, tight and decaying */
 .phone.shake{animation:shakeHit .17s cubic-bezier(.36,.07,.19,.97)}
 @keyframes shakeHit{0%{transform:translate(0,0)}14%{transform:translate(-5px,3px)}28%{transform:translate(5px,-4px)}42%{transform:translate(-4px,-3px)}56%{transform:translate(4px,2px)}70%{transform:translate(-2px,2px)}84%{transform:translate(2px,-1px)}100%{transform:translate(0,0)}}
-/* warm gold pulse in from the screen edges on impact */
 .edgePulse{position:absolute;inset:0;z-index:29;pointer-events:none;border-radius:28px;box-shadow:inset 0 0 0 0 rgba(255,168,40,0)}
 .edgePulse.go{animation:edgeGo .55s ease-out}
 @keyframes edgeGo{0%{box-shadow:inset 0 0 0 0 rgba(255,168,40,0)}22%{box-shadow:inset 0 0 66px 6px rgba(255,168,40,.55),inset 0 0 130px 26px rgba(255,110,30,.22)}100%{box-shadow:inset 0 0 0 0 rgba(255,168,40,0)}}
-/* CTA: snappier entrance + one-shot attention nudge */
-.cta.nudge{animation:ctaNudge .5s cubic-bezier(.2,.9,.25,1.1) forwards}
-@keyframes ctaNudge{0%,100%{opacity:1;transform:translateY(0) scale(1)}30%{opacity:1;transform:translateY(-3px) scale(1.035)}60%{opacity:1;transform:translateY(0) scale(.99)}}
-
 .fx{position:absolute;inset:0;z-index:31;pointer-events:none;overflow:hidden}
 .p{position:absolute;left:0;top:0;width:8px;height:8px;border-radius:50%;will-change:transform,opacity}
 .p.spark{width:4px;height:16px;border-radius:999px}
-.ringFx{position:absolute;width:24px;height:24px;border-radius:50%;border:3px solid rgba(143,226,255,.9);box-shadow:0 0 15px rgba(77,201,255,.55);opacity:0}
-.ringFx.gold{border-color:rgba(255,228,125,.95);box-shadow:0 0 16px rgba(255,192,64,.56)}
+.ringFx{position:absolute;width:24px;height:24px;border-radius:50%;border:3px solid rgba(255,228,125,.95);box-shadow:0 0 16px rgba(255,192,64,.56);opacity:0}
 .caption{font-size:13px;color:rgba(255,255,255,.72);text-align:center;max-width:760px;line-height:1.55}
 
-@media (max-width:760px){body{padding:22px}.controls{position:static;transform:none;width:min(100%,430px);max-height:none;overflow:visible;margin:0 auto}}
-@media (prefers-reduced-motion:reduce){.laneShine.go{animation:none}.roadItem.fresh{animation:none}
+@media (max-width:760px){body{padding:22px}.controls{position:static;transform:none;width:min(100%,430px);margin:0 auto}}
+@media (prefers-reduced-motion:reduce){.laneShine.go{animation:none}
   .phone.shake{animation:none}.lvlTitle .gleam.go{animation:none}.cta.nudge{animation:none}.flashBloom.go{animation:none}.edgePulse.go{animation:none}}
 </style>
 </head>
 <body>
 <div class="app">
   <div class="controls">
-    <strong>Level Up popup — v14</strong>
-    <div class="label">Typical levels</div>
-    <button class="ctrl" id="s28">Feature unlocked (Lv.28)</button>
-    <button class="ctrl" id="s27">Milestone reward (Lv.27)</button>
-    <button class="ctrl" id="s29">Five rewards · scroll (Lv.29)</button>
-    <button class="ctrl gray" id="s22">Plain level (Lv.22)</button>
-    <button class="ctrl gray" id="s55">Late game (Lv.55)</button>
-    <div class="label">Edge cases</div>
-    <button class="ctrl gray" id="s24">Feature + milestone (Lv.24)</button>
-    <button class="ctrl gray" id="extra">Toggle 5 rewards</button>
-    <div class="label">Edge case</div>
-    <button class="ctrl" id="ship">Ship a late feature (+7 lvls)</button>
-    <div class="hint" id="shipNote">Not shipped yet.</div>
-    <div class="hint">The five-reward level shows the pager: arrows appear past three, and the row drags, swipes and scroll-wheels left/right. Press any entry to peek at its info.</div>
+    <strong>Level Up popup — clean</strong>
+    <div class="label">Versions</div>
+    <button class="ctrl active" id="vFeature">Feature unlocked</button>
+    <button class="ctrl gray" id="vPlain">No feature</button>
     <div class="label">Playback</div>
     <button class="ctrl gray" id="replay">Replay</button>
     <div class="ctrlRow">
@@ -349,32 +283,40 @@ body{display:grid;place-items:center;padding:22px 22px 22px 248px;background:
       <div class="popup" id="popup">
         <div class="lvlTitle" id="lvlTitle"><i class="gleam" id="titleGleam"></i><span>Level Up!</span></div>
 
-        <div class="lvlRow">
-          <div class="shockwave" id="shockwave"></div>
-          <div class="badgeWrap" id="badgeWrap"><div class="badge"><div class="lvlNum" id="lvlNum">23</div></div></div>
-        </div>
-
-        <div class="rewardWrap" id="rewardWrap">
-          <div class="rewardStrip" id="rewardStrip"></div>
-          <button class="rwArrow left" id="rwPrev" aria-label="Previous rewards"></button>
-          <button class="rwArrow right" id="rwNext" aria-label="Next rewards"></button>
-        </div>
-
-        <div class="duo" id="duo">
-          <div class="lane" id="laneF"></div>
-          <div class="lane second" id="laneM"></div>
-        </div>
-
-        <div class="roadmap" id="roadmap">
-          <div class="roadHead" id="roadHead">UNLOCKS AHEAD <span class="hint">· HOLD FOR INFO</span></div>
-          <div class="roadRail">
-            <div class="roadTrack" id="roadTrack"></div>
-            <div class="railFade left" id="fadeL"></div>
-            <div class="railFade" id="fadeR"></div>
+        <div class="popBody">
+          <div class="lvlRow">
+            <div class="shockwave" id="shockwave"></div>
+            <div class="badgeWrap" id="badgeWrap"><div class="badge"><div class="lvlNum" id="lvlNum">23</div></div></div>
           </div>
+
+          <div class="rewardStrip" id="rewardStrip"></div>
+
+          <div class="featLane" id="featLane" style="display:none"></div>
+
+          <div class="teaser" id="teaser" style="display:none">
+            <div class="teaserGlyph" id="teaserGlyph"></div>
+            <div class="teaserTxt"><span class="lead">NEXT UP</span><b id="teaserName"></b></div>
+            <div class="teaserWhen" id="teaserWhen"></div>
+          </div>
+
+          <div class="holdHint">HOLD ANY ITEM FOR INFO</div>
+
+          <button class="cta" id="cta">Claim</button>
         </div>
 
-        <button class="cta" id="cta">Claim</button>
+        <!-- 60s auto-close ring: subtle, resets on any tap -->
+        <div class="timerRing" id="timerRing">
+          <svg viewBox="0 0 24 24" width="24" height="24">
+            <circle class="track" cx="12" cy="12" r="10"></circle>
+            <circle class="prog" id="timerProg" cx="12" cy="12" r="10"></circle>
+          </svg>
+        </div>
+      </div>
+
+      <div class="infoBubble" id="infoBubble">
+        <div class="ibTitle" id="ibTitle"></div>
+        <div class="ibMeta" id="ibMeta"></div>
+        <div class="ibDesc" id="ibDesc"></div>
       </div>
 
       <div class="unlockFly" id="unlockFly">
@@ -386,12 +328,6 @@ body{display:grid;place-items:center;padding:22px 22px 22px 248px;background:
         </div>
       </div>
 
-      <div class="infoBubble" id="infoBubble">
-        <div class="ibTitle" id="ibTitle"></div>
-        <div class="ibMeta" id="ibMeta"></div>
-        <div class="ibDesc" id="ibDesc"></div>
-      </div>
-
       <div class="skipHint" id="skipHint">Tap to skip</div>
       <div class="edgePulse" id="edgePulse"></div>
       <div class="flashBloom" id="flashBloom"></div>
@@ -399,7 +335,7 @@ body{display:grid;place-items:center;padding:22px 22px 22px 248px;background:
       <div class="fx" id="fx"></div>
     </div>
   </div>
-  <div class="caption">v14 — snappy celebration pass. The unlock area is one full-width card on almost every level, with its description shown. It splits into two lanes only on the rare level where a feature and a milestone land together (Lv.24 here, about 4% of levels). Height is identical either way. Opens on a typical level; the split is under Edge case.</div>
+  <div class="caption">Clean pass — two versions in one fixed-size popup: a plain level-up and a feature unlock. The feature version carries a small "next up" line. A faint ring in the corner auto-closes after 60s and resets on any tap.</div>
 </div>
 
 <script>
@@ -407,73 +343,50 @@ body{display:grid;place-items:center;padding:22px 22px 22px 248px;background:
 const $=id=>document.getElementById(id);
 const phone=$('phone'), dim=$('dim'), popup=$('popup'), lvlTitle=$('lvlTitle'),
       badgeWrap=$('badgeWrap'), lvlNum=$('lvlNum'), shockwave=$('shockwave'),
-      rewardStrip=$('rewardStrip'), rewardWrap=$('rewardWrap'), rwPrev=$('rwPrev'), rwNext=$('rwNext'), duo=$('duo'), laneF=$('laneF'), laneM=$('laneM'),
-      roadmap=$('roadmap'), roadHead=$('roadHead'), roadTrack=$('roadTrack'), fadeL=$('fadeL'), fadeR=$('fadeR'),
+      rewardStrip=$('rewardStrip'), featLane=$('featLane'),
+      teaser=$('teaser'), teaserGlyph=$('teaserGlyph'), teaserName=$('teaserName'), teaserWhen=$('teaserWhen'),
       cta=$('cta'), skipHint=$('skipHint'), core=$('core'), fx=$('fx'),
-      infoBubble=$('infoBubble'), ibTitle=$('ibTitle'), ibMeta=$('ibMeta'), ibDesc=$('ibDesc'), shipNote=$('shipNote'),
       unlockFly=$('unlockFly'), flyGlyph=$('flyGlyph'), flyTitle=$('flyTitle'), unlockLabel=$('unlockLabel'),
       gemsHud=$('gemsHud'), energyHud=$('energyHud'), gemsNum=$('gemsNum'), energyNum=$('energyNum'),
-      flashBloom=$('flashBloom'), titleGleam=$('titleGleam'), edgePulse=$('edgePulse');
+      flashBloom=$('flashBloom'), titleGleam=$('titleGleam'), edgePulse=$('edgePulse'),
+      timerRing=$('timerRing'), timerProg=$('timerProg'),
+      infoBubble=$('infoBubble'), ibTitle=$('ibTitle'), ibMeta=$('ibMeta'), ibDesc=$('ibDesc');
 
-let speed=1, phase='idle', timers=[], rafs=[], currentLevel=24, hud={gems:1240,energy:32}, unlockedFeature=null, roadList=[], laneEntries={left:null,right:null};
+let speed=1, phase='idle', timers=[], rafs=[], currentLevel=28, hud={gems:1240,energy:32}, unlockedFeature=null;
+let variant='feature';   // 'feature' | 'plain'
+let laneFeat=null, teaserFeat=null;   // current hold-to-peek payloads for the persistent cards
 
 /* ---------------- data ---------------- */
+// The feature roadmap only drives which feature a level unlocks + what the teaser names next.
 const FEATURES=[
-  {key:'arena',   level:24, name:'Classic Arena',  glyph:'g-arena',   nav:'nav3', desc:'Fight other players for weekly rank rewards.'},
-  {key:'talent',  level:26, name:'Talent Tree',    glyph:'g-talent',  nav:'nav0', desc:'Spend points to specialise your hero build.'},
   {key:'forge',   level:28, name:'Forge Pedestal', glyph:'g-forge',   nav:'nav1', desc:'Craft and rank up gear from Trial parts.'},
   {key:'dungeon', level:31, name:'Shadow Dungeon', glyph:'g-dungeon', nav:'nav2', desc:'Endless floors with escalating key rewards.'},
   {key:'well',    level:34, name:'Wishing Well',   glyph:'g-well',    nav:'nav4', desc:'Trade wishes for rare hero shards.'},
-  {key:'pass',    level:37, name:'Battle Pass',    glyph:'g-pass',    nav:'nav4', desc:'Seasonal reward track with a premium lane.'},
-  {key:'clan',    level:40, name:'Clan Hall',      glyph:'g-clan',    nav:'nav3', desc:'Join a clan for shared perks and raids.'}
+  {key:'pass',    level:37, name:'Battle Pass',    glyph:'g-pass',    nav:'nav4', desc:'Seasonal reward track with a premium lane.'}
 ];
-const ROAD_CAP=5;          // horizon is a COUNT, not a level range, so it always fills
-const MILESTONE_EVERY=3;   // milestones are generated, so the queue is never empty
-const MILESTONE_CYCLE=[
-  {name:'Summon Chest',    glyph:'g-chest', amt:'×1',   dest:'bag',    desc:'A guaranteed multi-summon on the standard banner.'},
-  {name:'Gem Cache',       glyph:'g-gems',  amt:'+750', pay:{gems:750},desc:'A bulk gem payout scaled to your current level.'},
-  {name:'Energy Cache',    glyph:'g-bolt',  amt:'+60',  pay:{energy:60},desc:'Refills energy and raises your offline accrual cap.'},
-  {name:'Legendary Chest', glyph:'g-chest', amt:'×1',   dest:'bag',    desc:'Guaranteed Legendary-tier gear from the current set.'}
-];
-// A milestone landing ON this level was previously filtered out of the queue and
-// never shown anywhere — the countdown simply vanished. It now gets its own banner.
-function milestoneAt(level){
-  if(level%MILESTONE_EVERY!==0) return null;
-  const r=MILESTONE_CYCLE[(level/MILESTONE_EVERY)%MILESTONE_CYCLE.length];
-  return {type:'milestone',id:'m_'+level,level,...r};
-}
-// Entries are never moved or removed once visible — only inserted ahead of the player.
-function buildQueue(level){
-  const feats=FEATURES.filter(f=>f.level>level).map(f=>({...f,type:'feature',id:'f_'+f.key}));
-  const miles=[];
-  for(let L=Math.ceil((level+1)/MILESTONE_EVERY)*MILESTONE_EVERY; miles.length<20; L+=MILESTONE_EVERY){
-    const r=MILESTONE_CYCLE[(L/MILESTONE_EVERY)%MILESTONE_CYCLE.length];
-    miles.push({type:'milestone',id:'m_'+L,level:L,...r});
-  }
-  // features win ties so a feature and a milestone on the same level read in the right order
-  return [...feats,...miles].sort((a,b)=>a.level-b.level||(a.type==='feature'?-1:1));
-}
-const seen=new Set();
-function seedSeen(level){buildQueue(level).forEach(e=>seen.add(e.id))}
-const REWARDS={
-  22:[{t:'gems',n:'Green Gems',v:'+180',pay:{gems:180}},{t:'energy',n:'Energy',v:'+28',pay:{energy:28}},{t:'parts',n:'Bone Parts',v:'+6',dest:'bag'}],
-  24:[{t:'gems',n:'Green Gems',v:'+250',pay:{gems:250}},{t:'energy',n:'Energy',v:'+28',pay:{energy:28}},{t:'ticket',n:'Summon Ticket',v:'+1',dest:'bag'}],
-  29:[{t:'gems',n:'Green Gems',v:'+320',pay:{gems:320}},{t:'energy',n:'Energy',v:'+30',pay:{energy:30}},{t:'parts',n:'Bone Parts',v:'+12',dest:'bag'},{t:'ticket',n:'Summon Ticket',v:'+2',dest:'bag'},{t:'talent',n:'Talent Point',v:'+1',dest:'bag'}],
-  55:[{t:'gems',n:'Green Gems',v:'+900',pay:{gems:900}},{t:'energy',n:'Energy',v:'+40',pay:{energy:40}},{t:'parts',n:'Relic Dust',v:'+24',dest:'bag'}]
+const featureAt   = lvl => FEATURES.find(f=>f.level===lvl) || null;
+const nextAfter   = lvl => FEATURES.find(f=>f.level>lvl)   || null;
+
+// Each version has its own level + reward set.
+const VARIANTS={
+  feature:{level:28, rewards:[
+    {t:'gems',  n:'Green Gems',    v:'+250', pay:{gems:250}},
+    {t:'energy',n:'Energy',        v:'+28',  pay:{energy:28}},
+    {t:'ticket',n:'Summon Ticket', v:'+1',   dest:'bag'}
+  ]},
+  plain:{level:23, rewards:[
+    {t:'gems',  n:'Green Gems', v:'+180', pay:{gems:180}},
+    {t:'energy',n:'Energy',     v:'+28',  pay:{energy:28}},
+    {t:'parts', n:'Bone Parts', v:'+6',   dest:'bag'}
+  ]}
 };
+// hold-to-peek descriptions for reward chips
 const REWARD_INFO={
   gems:  'Premium currency. Spent on summons, forge rerolls and energy refills.',
   energy:'Spent to run campaign battles and dungeon floors. Refills over time.',
   parts: 'Set-bound crafting material. Used at the Forge to build and rank up gear.',
-  ticket:'One free pull on the standard summon banner. Never expires.',
-  talent:'Spent in the Talent Tree to specialise your hero build.'
+  ticket:'One free pull on the standard summon banner. Never expires.'
 };
-let extraRewards=false;   // debug toggle for the >3 rewards edge case
-const EXTRA_REWARDS=[
-  {t:'ticket',n:'Summon Ticket',v:'+2',dest:'bag'},
-  {t:'talent',n:'Talent Point',v:'+1',dest:'bag'}
-];
-const DEFAULT_REWARDS=[{t:'gems',n:'Green Gems',v:'+220',pay:{gems:220}},{t:'energy',n:'Energy',v:'+28',pay:{energy:28}},{t:'parts',n:'Bone Parts',v:'+8',dest:'bag'}];
 
 /* ---------------- plumbing ---------------- */
 const wait=n=>new Promise(r=>{const id=setTimeout(r,n/speed);timers.push(id)});
@@ -484,7 +397,7 @@ function clearAll(){clearTimersOnly();fx.innerHTML=''}
 function center(el){const r=el.getBoundingClientRect(),p=phone.getBoundingClientRect();return{x:r.left-p.left+r.width/2,y:r.top-p.top+r.height/2}}
 function bez(a,b,c,d,t){const u=1-t;return u*u*u*a+3*u*u*t*b+3*u*t*t*c+t*t*t*d}
 function replay(el,cls){el.classList.remove(cls);void el.offsetWidth;el.classList.add(cls)}
-function ring(x,y,gold=false){const e=document.createElement('div');e.className='ringFx'+(gold?' gold':'');fx.appendChild(e);
+function ring(x,y){const e=document.createElement('div');e.className='ringFx';fx.appendChild(e);
   const dur=460/speed,s=performance.now();
   (function f(now){const t=Math.min(1,(now-s)/dur),q=1-Math.pow(1-t,3);
     e.style.transform=`translate(${x-12}px,${y-12}px) scale(${.55+q*2})`;e.style.opacity=1-t;
@@ -525,90 +438,47 @@ function flash(){ replay(flashBloom,'go'); }
 function shake(){ if(REDUCED) return; replay(phone,'shake'); }
 function edge(){ replay(edgePulse,'go'); }
 
-/* ---------------- roadmap strip ---------------- */
-function updateRailFades(){
-  const atStart=roadTrack.scrollLeft<=2;
-  const atEnd=roadTrack.scrollLeft+roadTrack.clientWidth>=roadTrack.scrollWidth-2;
-  fadeL.classList.toggle('on',!atStart);
-  fadeR.classList.toggle('on',!atEnd);
+/* ---------------- 60s auto-close timer ---------------- */
+const TIMER_MS=60000;
+const R=10, C=2*Math.PI*R;
+timerProg.style.strokeDasharray=C;
+let timerRAF=null, deadline=0;
+function setRing(frac){ timerProg.style.strokeDashoffset = C*(1-Math.max(0,Math.min(1,frac))); }
+function armTimer(){                       // called once the popup is fully interactive
+  deadline=performance.now()+TIMER_MS;
+  timerRing.classList.add('on');
+  setRing(1);
+  if(!timerRAF) tickTimer();
 }
-roadTrack.addEventListener('scroll',updateRailFades,{passive:true});
-window.addEventListener('resize',updateRailFades);
-
-let dragging=false,dragX=0,dragFrom=0,dragMoved=0;
-roadTrack.addEventListener('pointerdown',e=>{
-  if(e.pointerType==='touch')return;
-  dragging=true;dragMoved=0;dragX=e.clientX;dragFrom=roadTrack.scrollLeft;
-  roadTrack.classList.add('dragging');roadTrack.setPointerCapture(e.pointerId)});
-roadTrack.addEventListener('pointermove',e=>{
-  if(!dragging)return;
-  const dx=e.clientX-dragX;dragMoved=Math.max(dragMoved,Math.abs(dx));
-  roadTrack.scrollLeft=dragFrom-dx});
-function endDrag(e){
-  if(!dragging)return;
-  dragging=false;roadTrack.classList.remove('dragging');
-  if(e.pointerId!=null&&roadTrack.hasPointerCapture(e.pointerId))roadTrack.releasePointerCapture(e.pointerId)}
-roadTrack.addEventListener('pointerup',endDrag);
-roadTrack.addEventListener('pointercancel',endDrag);
-roadTrack.addEventListener('wheel',e=>{
-  const d=Math.abs(e.deltaX)>Math.abs(e.deltaY)?e.deltaX:e.deltaY;
-  const next=roadTrack.scrollLeft+d;
-  if(next>0&&next<roadTrack.scrollWidth-roadTrack.clientWidth){e.preventDefault();roadTrack.scrollLeft=next}
-},{passive:false});
-
-/* ---------------- reward pager ---------------- */
-function updateRewardArrows(){
-  const el=rewardStrip;
-  const more=el.scrollWidth-el.clientWidth>2;
-  rwPrev.disabled=!more||el.scrollLeft<=2;
-  rwNext.disabled=!more||el.scrollLeft+el.clientWidth>=el.scrollWidth-2;
+function resetTimer(){                     // any tap keeps the popup alive
+  if(phase!=='ready') return;
+  deadline=performance.now()+TIMER_MS;
 }
-function pageRewards(dir){rewardStrip.scrollBy({left:dir*rewardStrip.clientWidth,behavior:'smooth'})}
-rewardStrip.addEventListener('scroll',updateRewardArrows,{passive:true});
-rwPrev.addEventListener('click',()=>pageRewards(-1));
-rwNext.addEventListener('click',()=>pageRewards(1));
+function stopTimer(){
+  if(timerRAF){cancelAnimationFrame(timerRAF);timerRAF=null}
+  timerRing.classList.remove('on');
+  setRing(1);
+}
+function tickTimer(){
+  timerRAF=requestAnimationFrame(tickTimer);
+  if(phase!=='ready') return;              // only counts while the popup is settled
+  const rem=deadline-performance.now();
+  setRing(rem/TIMER_MS);
+  if(rem<=0){ stopTimer(); dismiss(); }
+}
 
-// drag + wheel to scroll the row left/right on desktop (touch swipes natively).
-// Mirrors the roadmap strip: pointer-capture drag, release handled via window
-// so it never fights the press-to-peek hold bound on each chip.
-let rwDrag=false,rwX=0,rwFrom=0,rwMoved=0;
-rewardStrip.addEventListener('pointerdown',e=>{
-  if(e.pointerType==='touch')return;
-  if(rewardStrip.scrollWidth-rewardStrip.clientWidth<=2)return;   // nothing to scroll
-  rwDrag=true;rwMoved=0;rwX=e.clientX;rwFrom=rewardStrip.scrollLeft;
-  rewardStrip.classList.add('dragging');rewardStrip.setPointerCapture(e.pointerId)});
-rewardStrip.addEventListener('pointermove',e=>{
-  if(!rwDrag)return;
-  const dx=e.clientX-rwX;rwMoved=Math.max(rwMoved,Math.abs(dx));
-  rewardStrip.scrollLeft=rwFrom-dx});
-function rwEndDrag(e){
-  if(!rwDrag)return;
-  rwDrag=false;rewardStrip.classList.remove('dragging');
-  if(e.pointerId!=null&&rewardStrip.hasPointerCapture(e.pointerId))rewardStrip.releasePointerCapture(e.pointerId)}
-rewardStrip.addEventListener('pointerup',rwEndDrag);
-rewardStrip.addEventListener('pointercancel',rwEndDrag);
-rewardStrip.addEventListener('wheel',e=>{
-  if(rewardStrip.scrollWidth-rewardStrip.clientWidth<=2)return;
-  const d=Math.abs(e.deltaX)>Math.abs(e.deltaY)?e.deltaX:e.deltaY;
-  const next=rewardStrip.scrollLeft+d;
-  if(next>0&&next<rewardStrip.scrollWidth-rewardStrip.clientWidth){e.preventDefault();rewardStrip.scrollLeft=next}
-},{passive:false});
-
-/* ---------------- feature info ---------------- */
-// Press to peek: opens while the finger is down, closes the moment it lifts.
+/* ---------------- hold-to-peek info ---------------- */
+// Press to peek: opens while held, closes on release. Only while the popup is settled.
 const OPEN_DELAY=50;
 let openTimer=null, holdEl=null, holdOrigin=null;
-
 function showInfo(f, anchorEl){
   if(!f) return;
   ibTitle.textContent=f.name;
   if(f.level==null){
-    ibMeta.textContent=f.meta;                       // a reward — no countdown to show
+    ibMeta.textContent=f.meta;                       // a reward — no countdown
   }else{
     const n=f.level-currentLevel;
-    const verb=f.type==='milestone'?'Reward at':'Unlocks at';
-    // an entry that landed on this level is earned, not "0 levels away"
-    ibMeta.textContent = n>0 ? `${verb} Level ${f.level} · ${n} level${n>1?'s':''} away`
+    ibMeta.textContent = n>0 ? `Unlocks at Level ${f.level} · ${n} level${n>1?'s':''} away`
                              : `Earned at Level ${f.level}`;
   }
   ibDesc.textContent=f.desc;
@@ -619,20 +489,15 @@ function showInfo(f, anchorEl){
     const left=Math.max(12, Math.min(p.width-b.width-12, cx-b.width/2));
     infoBubble.style.left=left+'px';
     infoBubble.style.top=Math.max(12, a.top-p.top-b.height-12)+'px';
-    // arrow keeps pointing at the element even after the bubble clamps to the edge
     infoBubble.style.setProperty('--arrow', Math.max(16, Math.min(b.width-16, cx-left))+'px');
   });
 }
-function closeInfo(){
-  infoBubble.classList.remove('on');
-  if(holdEl){holdEl.classList.remove('holding');holdEl=null}
-}
-function cancelHold(){if(!holdEl && !holdOrigin) return;clearTimeout(openTimer);openTimer=null;holdOrigin=null;closeInfo()}
-
-function bindHold(el, getFeature){
+function closeInfo(){ infoBubble.classList.remove('on'); if(holdEl){holdEl.classList.remove('holding');holdEl=null} }
+function cancelHold(){ if(!holdEl && !holdOrigin) return; clearTimeout(openTimer);openTimer=null;holdOrigin=null;closeInfo() }
+function bindHold(el, getInfo){
   el.addEventListener('pointerdown', e=>{
     if(phase!=='ready') return;
-    const f=getFeature(); if(!f) return;
+    const f=getInfo(); if(!f) return;
     holdOrigin={x:e.clientX,y:e.clientY};
     clearTimeout(openTimer);
     if(holdEl && holdEl!==el) holdEl.classList.remove('holding');
@@ -640,120 +505,97 @@ function bindHold(el, getFeature){
     openTimer=setTimeout(()=>{openTimer=null; showInfo(f,el)}, OPEN_DELAY);
   });
 }
-// Release and movement are handled at window level on purpose: the strip calls
-// setPointerCapture on the same pointerdown, which retargets every later pointer
-// event (and fires a spurious pointerleave at the item), so element-bound
-// listeners here would either miss the release or cancel the press instantly.
 window.addEventListener('pointerup', cancelHold);
 window.addEventListener('pointercancel', cancelHold);
 window.addEventListener('pointermove', e=>{
   if(!holdOrigin) return;
-  // a swipe on the strip should scroll, not pop a bubble
   if(Math.abs(e.clientX-holdOrigin.x)>6 || Math.abs(e.clientY-holdOrigin.y)>6) cancelHold();
 });
+// persistent cards read their current payload through a getter, so we bind once
+bindHold(featLane, ()=>laneFeat);
+bindHold(teaser,   ()=>teaserFeat);
 
-/* ---------------- content ---------------- */
-const unlockedAt=l=>FEATURES.find(f=>f.level===l)||null;
-const upcomingAfter=l=>FEATURES.filter(f=>f.level>l);
-const away=(f,l)=>f.level-l;
-const awayText=n=>`IN ${n} LVL${n>1?'S':''}`;
-
-function buildRewards(level){
+/* ---------------- content builders ---------------- */
+function buildRewards(rows){
   rewardStrip.innerHTML='';
-  const rows=[...(REWARDS[level]||DEFAULT_REWARDS),...(extraRewards?EXTRA_REWARDS:[])];
   rows.forEach(r=>{
-    const c=document.createElement('div');c.className='chip chipCell';
+    const c=document.createElement('div');c.className='chip';
     c.dataset.pay=JSON.stringify(r.pay||{});c.dataset.dest=r.dest||'';
     c.innerHTML=`<div class="chipIcon i-${r.t}"></div>`+
                 `<div class="chipVal">${r.v}</div><div class="chipName">${r.n}</div>`;
-    bindHold(c,()=>({
+    bindHold(c,()=>({                                   // fresh element each build — safe to bind here
       name:r.n,
       meta:`${r.v} · ${r.dest==='bag'?'Sent to your bag':'Added to your balance'}`,
       desc:REWARD_INFO[r.t]||''
     }));
     rewardStrip.appendChild(c)});
-  // arrows exist only when a fourth reward pushes past the page
-  rewardWrap.classList.toggle('paged',rows.length>3);
-  rewardStrip.scrollLeft=0;updateRewardArrows();
 }
-// Two lanes, always both filled, always the same height.
-//  left  = the feature you just unlocked, else the next feature, else fall through to the queue
-//  right = the milestone you just earned, else the next milestone
-// Nothing that lands on this level can go unacknowledged any more.
-function laneHTML(e){
-  const lock = (!e.earned && e.type==='feature') ? '<div class="lockBadge"></div>' : '';
-  const kick = e.earned
-    ? (e.type==='feature' ? 'FEATURE UNLOCKED' : 'MILESTONE REWARD')
-    : `${e.type==='feature'?'NEW SYSTEM':'REWARD'} · IN ${e.level-currentLevel} LEVEL${e.level-currentLevel>1?'S':''}`;
-  return `<div class="laneShine"></div>`+
-         `<div class="laneIcon"><div class="glyph ${e.glyph}"></div>${lock}</div>`+
-         `<div><div class="laneKick">${kick}</div><div class="laneName">${e.name}</div>`+
-         `<div class="laneDesc">${e.desc}</div></div>`;
+// One full-width card carries the mid. Earned = gold celebration; pending = the next
+// feature that's still coming, so the no-feature version shows WHEN it unlocks.
+function fillLane(feat, earned){
+  featLane.style.display='';
+  featLane.className='featLane '+(earned?'earned':'pending');
+  const away=feat.level-currentLevel;
+  const kick=earned ? 'FEATURE UNLOCKED'
+                    : `NEW SYSTEM · IN ${away} LEVEL${away>1?'S':''}`;
+  const lock=earned ? '' : '<div class="lockBadge"></div>';
+  featLane.innerHTML=
+    `<div class="laneShine"></div>`+
+    `<div class="featIcon"><div class="glyph ${feat.glyph}"></div>${lock}</div>`+
+    `<div><div class="featKick">${kick}</div>`+
+    `<div class="featName">${feat.name}</div>`+
+    `<div class="featDesc">${feat.desc}</div></div>`;
+  featLane.dataset.earned=earned?'1':'0';
+  laneFeat={name:feat.name, level:feat.level, desc:feat.desc};
 }
-function visibleLanes(){return duo.classList.contains('split')?[laneF,laneM]:[laneF]}
-function fillLane(el,e){
-  // `second` must survive — it is what hides this lane when the layout isn't split
-  el.className='lane '+(el===laneM?'second ':'')+(e.earned?'earned':'pending');
-  el.innerHTML=laneHTML(e);
-  el.dataset.earned=e.earned?'1':'0';
-  el.dataset.pay=JSON.stringify((e.earned&&e.pay)||{});
+function buildTeaser(nxt){
+  if(!nxt){ teaser.style.display='none'; teaserFeat=null; return; }
+  const away=nxt.level-currentLevel;
+  teaser.style.display='';
+  teaserGlyph.className='teaserGlyph '+nxt.glyph;
+  teaserName.textContent=nxt.name;
+  teaserWhen.innerHTML=`Lv.${nxt.level}<small>in ${away} level${away>1?'s':''}</small>`;
+  teaserFeat={name:nxt.name, level:nxt.level, desc:nxt.desc};
 }
-function clearLane(el){el.className='lane second';el.innerHTML='';el.dataset.earned='0';el.dataset.pay='{}'}
-function buildDuo(level){
-  const earnedF=unlockedAt(level), earnedM=milestoneAt(level), queue=buildQueue(level);
-  // Splitting is the exception, not the rule: it happens only when a feature and a
-  // milestone land on the same level. Every other level is a single full-width card.
-  const split=!!(earnedF&&earnedM);
-  duo.classList.toggle('split',split);
-
-  const left = earnedF ? {...earnedF,type:'feature',id:'f_'+earnedF.key,earned:true}
-             : earnedM ? {...earnedM,earned:true}
-                       : {...queue[0],earned:false};   // nothing landed — show what's next
-  const right = split ? {...earnedM,earned:true} : null;
-
-  unlockedFeature=earnedF;
-  fillLane(laneF,left);
-  if(right) fillLane(laneM,right); else clearLane(laneM);
-  laneEntries={left,right};
-
-  const used=[left.id,right&&right.id].filter(Boolean);
-  roadList=queue.filter(e=>used.indexOf(e.id)===-1).slice(0,ROAD_CAP);
-  roadmap.style.display=roadList.length?'':'none';
-  roadHead.innerHTML='UNLOCKS AHEAD <span class="hint">· HOLD FOR INFO</span>';
-  roadTrack.innerHTML='';
-  roadList.forEach(e=>{
-    const el=document.createElement('div');
-    const fresh=!seen.has(e.id);
-    el.className='roadItem'+(e===roadList[0]?' next':'')+(e.type==='milestone'?' ms':'')+(fresh?' fresh':'');
-    el.innerHTML=`${fresh?'<div class="freshTag">NEW</div>':''}`+
-      `<div class="roadGlyph ${e.glyph}"></div>`+
-      `<div class="roadIn">${awayText(away(e,level))}</div>`+
-      `<div class="roadName">${e.name}</div>`;
-    bindHold(el,()=>e);
-    roadTrack.appendChild(el)});
-  roadTrack.scrollLeft=0;updateRailFades();
+function buildFeature(){
+  const cfg=VARIANTS[variant];
+  if(variant==='feature'){
+    const feat=featureAt(cfg.level);                   // the feature this level unlocks
+    unlockedFeature=feat;
+    fillLane(feat,true);
+    buildTeaser(nextAfter(feat.level));                // small "next up" line
+  }else{
+    unlockedFeature=null;
+    const nxt=nextAfter(cfg.level);                    // no unlock — show what's coming + when
+    if(nxt) fillLane(nxt,false); else { featLane.style.display='none'; laneFeat=null; }
+    buildTeaser(null);
+  }
 }
 
-/* ---------------- reset ---------------- */
-function reset(level){
-  clearAll();currentLevel=level;
+/* ---------------- reset / build a version ---------------- */
+function reset(){
+  clearAll(); stopTimer();
+  const cfg=VARIANTS[variant];
+  currentLevel=cfg.level;
+
   hud={gems:1240,energy:32};gemsNum.textContent=fmt(hud.gems);energyNum.textContent=hud.energy;
   gemsHud.className='hud gems';energyHud.className='hud energy';
   ['nav0','nav1','nav2','nav3','nav4'].forEach((id,i)=>{const n=$(id);n.className='navbtn'+(i===2?' on':'');n.querySelector('.newDot').className='newDot'});
   dim.className='dim';popup.className='popup';core.className='core';
   lvlTitle.className='lvlTitle';badgeWrap.className='badgeWrap';lvlNum.className='lvlNum';
-  cta.className='cta';skipHint.className='skipHint';
-  shockwave.className='shockwave';
-  phone.classList.remove('shake');flashBloom.className='flashBloom';titleGleam.className='gleam';
-  edgePulse.className='edgePulse';
+  cta.className='cta';skipHint.className='skipHint';shockwave.className='shockwave';
+  phone.classList.remove('shake');flashBloom.className='flashBloom';titleGleam.className='gleam';edgePulse.className='edgePulse';
   unlockFly.className='unlockFly';unlockFly.style.opacity='0';unlockLabel.className='unlockLabel';
+
   clearTimeout(openTimer);closeInfo();
-  lvlNum.textContent=level-1;
-  buildRewards(level);buildDuo(level);cta.disabled=false;
+  lvlNum.textContent=currentLevel-1;
+  buildRewards(cfg.rewards);
+  buildFeature();
+  featLane.classList.remove('in','holding'); teaser.classList.remove('in','holding');
+  cta.disabled=false;
 }
 
-/* ---------------- skip ---------------- */
-// First tap during the intro jumps straight to the resolved frame.
+/* ---------------- skip (first tap during intro jumps to the resolved frame) ---------------- */
 function skipToEnd(){
   clearAll();
   phone.classList.remove('shake');flashBloom.className='flashBloom';
@@ -761,60 +603,62 @@ function skipToEnd(){
   lvlTitle.className='lvlTitle in';badgeWrap.className='badgeWrap slam';
   lvlNum.textContent=currentLevel;lvlNum.className='lvlNum';
   [...rewardStrip.children].forEach(c=>c.classList.add('in'));
-  visibleLanes().forEach(el=>el.classList.add('in'));
-  [...roadTrack.children].forEach(c=>c.classList.add('in'));
-  requestAnimationFrame(updateRailFades);
+  if(featLane.style.display!=='none') featLane.classList.add('in');
+  if(teaser.style.display!=='none')  teaser.classList.add('in');
   cta.classList.add('in');
   skipHint.classList.remove('on');
   phase='ready';
+  armTimer();
 }
 
-/* ---------------- intro sequence ---------------- */
-async function play(level){
+/* ---------------- intro ---------------- */
+async function play(){
   if(phase==='intro')return;
-  phase='intro';reset(level);
+  phase='intro';reset();
 
-  // dim snaps on, popup pops in right behind it
   dim.classList.add('on');          await wait(70);
   popup.classList.add('open');       await wait(120);
   const hintId=setTimeout(()=>{if(phase==='intro')skipHint.classList.add('on')},650/speed);timers.push(hintId);
   lvlTitle.classList.add('in');      await wait(70);
   badgeWrap.classList.add('in');     await wait(230);
 
-  // wind up fast, then THE SLAM — one orchestrated impact frame
+  // wind up, then THE SLAM
   badgeWrap.classList.add('charge'); await wait(190);
   badgeWrap.classList.remove('in','charge');
   replay(badgeWrap,'slam');
-  lvlNum.textContent=level;replay(lvlNum,'swap');replay(shockwave,'go');replay(titleGleam,'go');
+  lvlNum.textContent=currentLevel;replay(lvlNum,'swap');replay(shockwave,'go');replay(titleGleam,'go');
   const bc=center(badgeWrap);
   flash(); shake(); edge();
-  ring(bc.x,bc.y,true);burst(bc,{count:24,radius:110,dur:720});
+  ring(bc.x,bc.y);burst(bc,{count:24,radius:110,dur:720});
   await wait(300);
 
-  // everything else snaps into the wake of the slam, fast
+  // rewards snap into the wake
   const chips=[...rewardStrip.children];
   chips.forEach((c,i)=>{const id=setTimeout(()=>c.classList.add('in'),(Math.min(i,3)*62)/speed);timers.push(id)});
-  await wait(200);
+  await wait(220);
 
-  laneF.classList.add('in');
-  if(duo.classList.contains('split')){const l2=setTimeout(()=>laneM.classList.add('in'),90/speed);timers.push(l2)}
-  await wait(170);
-  const earned=visibleLanes().filter(el=>el.dataset.earned==='1');
-  for(const el of earned){
-    replay(el.querySelector('.laneShine'),'go');
-    const ic=center(el.querySelector('.laneIcon'));
-    ring(ic.x,ic.y,true);burst(ic,{count:20,radius:60,dur:600});
-    await wait(90);
+  // the mid card slides in; only an EARNED (gold) unlock gets the celebratory pop
+  if(featLane.style.display!=='none'){
+    featLane.classList.add('in');
+    await wait(170);
+    if(featLane.dataset.earned==='1'){
+      replay(featLane.querySelector('.laneShine'),'go');
+      const ic=center(featLane.querySelector('.featIcon'));
+      ring(ic.x,ic.y);burst(ic,{count:20,radius:60,dur:600});
+      await wait(150);
+    }else{
+      await wait(80);
+    }
+    if(teaser.style.display!=='none'){ teaser.classList.add('in'); await wait(120); }
+  }else{
+    await wait(120);
   }
-  await wait(earned.length?120:90);
 
-  [...roadTrack.children].forEach((c,i)=>{const id=setTimeout(()=>c.classList.add('in'),(Math.min(i,3)*50)/speed);timers.push(id)});
-  requestAnimationFrame(()=>{updateRailFades();updateRewardArrows()});
-  await wait(150);
   cta.classList.add('in');
   const nudge=setTimeout(()=>{if(phase==='ready')replay(cta,'nudge')},260/speed);timers.push(nudge);
   skipHint.classList.remove('on');
   phase='ready';
+  armTimer();
 }
 
 /* ---------------- feature unlock flight ---------------- */
@@ -831,26 +675,24 @@ function flyAlong(el,from,to,{dur=760,fromScale=1,toScale=.3,lift=110}={}){
 }
 async function featureUnlockSequence(f){
   const target=$(f.nav), mid={x:215,y:430};
-  unlockFly.className='unlockFly';unlockLabel.className='unlockLabel';   // replayable
+  unlockFly.className='unlockFly';unlockLabel.className='unlockLabel';
   flyGlyph.className='glyph '+f.glyph;
   flyTitle.textContent=f.name;
   unlockFly.style.transform=`translate(${mid.x}px,${mid.y}px) scale(.25)`;
   unlockFly.style.opacity='1';
 
-  // arrive at centre
   const S=performance.now(),D=460/speed;
   await new Promise(res=>{(function f2(now){
     const t=Math.min(1,(now-S)/D),q=1-Math.pow(1-t,3),s=.25+(1.12-.25)*q;
     unlockFly.style.transform=`translate(${mid.x}px,${mid.y}px) scale(${s})`;
     if(t<1)raf(f2);else res()})(performance.now())});
   unlockFly.classList.add('arrive');
-  ring(mid.x,mid.y,true);burst(mid,{count:34,radius:120,dur:820});
+  ring(mid.x,mid.y);burst(mid,{count:34,radius:120,dur:820});
   await wait(90);
   unlockFly.style.transform=`translate(${mid.x}px,${mid.y}px) scale(1)`;
   unlockLabel.classList.add('in');
   await wait(900);
 
-  // fly into the nav slot
   unlockLabel.classList.remove('in');unlockLabel.classList.add('out');
   await wait(160);
   const to=center(target);
@@ -858,24 +700,23 @@ async function featureUnlockSequence(f){
   unlockFly.style.opacity='0';
 
   target.classList.add('hit','flash');
-  ring(to.x,to.y,true);burst(to,{count:16,radius:52,dur:520});
-  const dot=target.querySelector('.newDot');dot.classList.add('pop');
+  ring(to.x,to.y);burst(to,{count:16,radius:52,dur:520});
+  target.querySelector('.newDot').classList.add('pop');
   await wait(420);
   target.classList.remove('flash');
   await wait(120);
 }
 
-/* ---------------- dismissal ---------------- */
+/* ---------------- dismiss ---------------- */
 async function dismiss(){
   if(phase!=='ready')return;
   phase='outro';
-  cancelHold();
+  stopTimer();
+  clearTimeout(openTimer);closeInfo();
   cta.disabled=true;cta.classList.add('pressed');
   await wait(110);cta.classList.remove('pressed');
 
-  // an earned milestone is a real reward, so its lane flies out with the chips
-  const earnedLanes=visibleLanes().filter(el=>el.dataset.earned==='1'&&el.dataset.pay!=='{}');
-  const chips=[...earnedLanes,...rewardStrip.children];
+  const chips=[...rewardStrip.children];
   popup.classList.remove('open');popup.classList.add('closing');
   await wait(200);
   popup.classList.remove('closing');
@@ -890,7 +731,7 @@ async function dismiss(){
     particles(origin,to,{count:16,spread:18,dur:600,gold,arc:70});
     const id=setTimeout(()=>{
       target.classList.remove('hit');void target.offsetWidth;target.classList.add('hit');
-      ring(to.x,to.y,gold);
+      ring(to.x,to.y);
       if(key==='gems'){hud.gems+=pay.gems;gemsNum.textContent=fmt(hud.gems)}
       else if(key==='energy'){hud.energy+=pay.energy;energyNum.textContent=hud.energy}
     },(300+i*70)/speed);timers.push(id);
@@ -917,45 +758,29 @@ function onTapSkip(e){
 dim.addEventListener('pointerdown',onTapSkip);
 popup.addEventListener('pointerdown',onTapSkip);
 
-bindHold(laneF,()=>laneEntries.left);
-bindHold(laneM,()=>laneEntries.right);   // only reachable while split
+// ANY tap anywhere in the phone resets the 60s auto-close timer.
+phone.addEventListener('pointerdown',resetTimer,true);
+
 cta.onclick=dismiss;
-function startScenario(l){seedSeen(l);play(l)}   // seeding = "player has already seen this ladder"
-$('s24').onclick=()=>startScenario(24);
-$('s28').onclick=()=>startScenario(28);
-$('s27').onclick=()=>startScenario(27);
-$('s29').onclick=()=>startScenario(29);
-$('s22').onclick=()=>startScenario(22);
-$('s55').onclick=()=>startScenario(55);
-$('replay').onclick=()=>play(currentLevel);
-$('extra').onclick=e=>{
-  extraRewards=!extraRewards;
-  e.target.classList.toggle('active',extraRewards);
-  forceIdle();play(currentLevel);
-};
 
-// abandon whatever sequence is mid-flight so the edge-case buttons always respond
-function forceIdle(){clearAll();phase='idle'}
-
-// Shipping a late feature is a data change: it merges into the running ladder.
-// Injected 7 levels ahead of wherever the player is, so it always lands in view.
-const LATE_FEATURE={key:'relicforge',name:'Relic Forge',glyph:'g-relic',nav:'nav1',
-  desc:'Reforge relics into set-bound legendary gear.'};
-$('ship').onclick=()=>{
-  const at=currentLevel+7;
-  const i=FEATURES.findIndex(f=>f.key===LATE_FEATURE.key);
-  if(i>=0)FEATURES.splice(i,1);
-  FEATURES.push({...LATE_FEATURE,level:at});
-  FEATURES.sort((a,b)=>a.level-b.level);
-  seen.delete('f_'+LATE_FEATURE.key);   // unseen, so it flares
-  shipNote.textContent=`Relic Forge shipped at Lv.${at}`;
-  forceIdle();play(currentLevel);       // no reseed — everything else stays seen
-};
-
+/* ---------------- switcher ---------------- */
+function forceIdle(){clearAll();stopTimer();phase='idle'}
+function setVariant(v){
+  variant=v;
+  $('vFeature').classList.toggle('active',v==='feature');
+  $('vFeature').classList.toggle('gray',v!=='feature');
+  $('vPlain').classList.toggle('active',v==='plain');
+  $('vPlain').classList.toggle('gray',v!=='plain');
+  forceIdle();play();
+}
+$('vFeature').onclick=()=>setVariant('feature');
+$('vPlain').onclick=()=>setVariant('plain');
+$('replay').onclick=()=>{forceIdle();play()};
 document.querySelectorAll('.speed').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('.speed').forEach(x=>x.classList.remove('active'));
   b.classList.add('active');speed=+b.dataset.speed});
-startScenario(28);   // boot on a typical level, not the edge case
+
+setVariant('feature');   // boot on the feature version
 })();
 </script>
 </body>
